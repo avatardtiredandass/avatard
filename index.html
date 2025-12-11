@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <title>Avatard Memecoin</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg-dark: #020821;
+      --blue: #0f75ff;
+      --neon-blue: #00d9ff;
+      --turquoise: #1de9b6;
+      --magenta: #ff3ec9;
+      --text-light: #f5f8ff;
+      --glass: rgba(4, 15, 40, 0.78);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+      min-height: 100vh;
+      color: var(--text-light);
+      background: var(--bg-dark)
+        url("Avatard Landscape 3.jpg") center/cover fixed no-repeat;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Überlagerung für bessere Lesbarkeit */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at top left,
+          rgba(0, 217, 255, 0.34),
+          transparent 55%)
+        , radial-gradient(circle at bottom right,
+          rgba(255, 62, 201, 0.36),
+          transparent 55%)
+        , rgba(2, 4, 20, 0.8);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .page-wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2.5rem 1.25rem 4rem;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .logo-wrap {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .logo-wrap img {
+      width: 70px;
+      height: 70px;
+      border-radius: 999px;
+      border: 2px solid rgba(0, 217, 255, 0.8);
+      box-shadow: 0 0 16px rgba(0, 217, 255, 0.9);
+      object-fit: cover;
+      background: #000;
+    }
+
+    .logo-text h1 {
+      font-size: clamp(1.8rem, 4vw, 2.4rem);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      background: linear-gradient(
+        120deg,
+        var(--neon-blue),
+        var(--turquoise),
+        var(--magenta)
+      );
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .logo-text span {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      opacity: 0.8;
+    }
+
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      justify-content: flex-end;
+    }
+
+    .nav-pill {
+      font-size: 0.8rem;
+      padding: 0.4rem 0.9rem;
+      border-radius: 999px;
+      border: 1px solid rgba(0, 217, 255, 0.4);
+      background: rgba(1, 7, 25, 0.4);
+      backdrop-filter: blur(10px);
+      cursor: pointer;
+      transition: 0.2s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .nav-pill:hover {
+      border-color: rgba(255, 62, 201, 0.7);
+      transform: translateY(-1px);
+      box-shadow: 0 0 10px rgba(0, 217, 255, 0.6);
+    }
+
+    main {
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2.4fr);
+      gap: 2.5rem;
+      align-items: flex-start;
+    }
+
+    .card {
+      background: var(--glass);
+      border-radius: 1.4rem;
+      border: 1px solid rgba(0, 217, 255, 0.35);
+      padding: 1.8rem 1.7rem 1.9rem;
+      box-shadow: 0 18px 35px rgba(0, 0, 0, 0.65);
+      backdrop-filter: blur(15px);
+    }
+
+    .hero-title {
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      margin-bottom: 0.4rem;
+    }
+
+    .hero-highlight {
+      font-weight: 700;
+      color: var(--neon-blue);
+      text-shadow: 0 0 12px rgba(0, 217, 255, 0.9);
+    }
+
+    .hero-subline {
+      font-size: 0.95rem;
+      opacity: 0.85;
+      margin-bottom: 1.4rem;
+    }
+
+    .hero-copy {
+      font-size: 0.93rem;
+      line-height: 1.6;
+      opacity: 0.9;
+      margin-bottom: 1.7rem;
+    }
+
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.9rem;
+      margin-bottom: 1rem;
+    }
+
+    .btn-main {
+      position: relative;
+      padding: 0.9rem 1.5rem;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.9rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background-image: linear-gradient(
+        120deg,
+        var(--neon-blue),
+        var(--turquoise),
+        var(--magenta)
+      );
+      color: #020617;
+      box-shadow: 0 0 22px rgba(0, 217, 255, 0.85);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      text-decoration: none;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+    }
+
+    .btn-main span.icon {
+      font-size: 1.1rem;
+    }
+
+    .btn-main:hover {
+      transform: translateY(-1px) scale(1.02);
+      filter: brightness(1.05);
+      box-shadow: 0 0 30px rgba(255, 62, 201, 0.8);
+    }
+
+    .btn-ghost {
+      padding: 0.8rem 1.3rem;
+      border-radius: 999px;
+      border: 1px solid rgba(0, 217, 255, 0.7);
+      background: rgba(0, 4, 20, 0.6);
+      backdrop-filter: blur(10px);
+      cursor: pointer;
+      font-size: 0.84rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      text-decoration: none;
+      transition: 0.2s ease;
+    }
+
+    .btn-ghost span.icon {
+      font-size: 1rem;
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--magenta);
+      box-shadow: 0 0 14px rgba(0, 217, 255, 0.8);
+      transform: translateY(-1px);
+    }
+
+    .hero-note {
+      font-size: 0.78rem;
+      opacity: 0.8;
+      margin-top: 0.2rem;
+    }
+
+    /* Socials */
+
+    .section-title {
+      font-size: 1.05rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 0.9rem;
+      color: var(--neon-blue);
+    }
+
+    .social-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 0.8rem;
+      margin-bottom: 1.4rem;
+    }
+
+    .social-item {
+      border-radius: 0.9rem;
+      padding: 0.7rem 0.9rem;
+      border: 1px solid rgba(0, 217, 255, 0.36);
+      background: radial-gradient(circle at top,
+          rgba(0, 217, 255, 0.2),
+          rgba(1, 6, 23, 0.9));
+      font-size: 0.86rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .social-item span.label {
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-size: 0.75rem;
+    }
+
+    .social-item span.handle {
+      font-size: 0.76rem;
+      opacity: 0.85;
+    }
+
+    .social-item:hover {
+      border-color: var(--magenta);
+      box-shadow: 0 0 18px rgba(0, 217, 255, 0.8);
+      transform: translateY(-1px);
+    }
+
+    .social-item.social-ax {
+      background: radial-gradient(circle at top left,
+          rgba(29, 233, 182, 0.3),
+          rgba(4, 15, 40, 0.98));
+    }
+
+    .social-item.social-pump {
+      background: radial-gradient(circle at top left,
+          rgba(255, 62, 201, 0.26),
+          rgba(4, 15, 40, 0.98));
+    }
+
+    .social-item.social-gmgn {
+      background: radial-gradient(circle at top left,
+          rgba(0, 150, 255, 0.28),
+          rgba(4, 15, 40, 0.98));
+    }
+
+    .token-preview {
+      font-size: 0.86rem;
+      line-height: 1.6;
+      opacity: 0.9;
+    }
+
+    .token-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin: 0.6rem 0 0.2rem;
+    }
+
+    .token-badge {
+      border-radius: 999px;
+      border: 1px solid rgba(0, 217, 255, 0.6);
+      padding: 0.15rem 0.6rem;
+      font-size: 0.74rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      opacity: 0.92;
+    }
+
+    footer {
+      margin-top: 2.5rem;
+      font-size: 0.75rem;
+      text-align: center;
+      opacity: 0.7;
+    }
+
+    /* Responsive */
+
+    @media (max-width: 820px) {
+      main {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      nav {
+        justify-content: flex-start;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .btn-row {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .btn-main,
+      .btn-ghost {
+        justify-content: center;
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-wrap">
+    <header>
+      <div class="logo-wrap">
+        <img src="Avatard.png" alt="Avatard Memecoin Logo" />
+        <div class="logo-text">
+          <h1>Avatard Coin</h1>
+          <span>Der leuchtblaue Meme aus einer anderen Galaxie</span>
+        </div>
+      </div>
+
+      <nav>
+        <a href="#socials" class="nav-pill">Community</a>
+        <a href="tokenomics.html" class="nav-pill">Tokenomics</a>
+        <a href="fun.html" class="nav-pill">Fun</a>
+        <a href="videos.html" class="nav-pill">Videos</a>
+      </nav>
+    </header>
+
+    <main>
+      <!-- HERO / Buttons -->
+      <section class="card">
+        <h2 class="hero-title">
+          Willkommen im
+          <span class="hero-highlight">Avatard-Verse</span>
+        </h2>
+        <p class="hero-subline">
+          Ein <strong>blauer, leuchtender Memecoin</strong> direkt aus dem
+          mystischen Neon-Wald.
+        </p>
+
+        <p class="hero-copy">
+          Avatard ist mehr als nur ein Coin – er ist eine
+          <strong>Chaotic-Good Community</strong> voller Memes, Spaß und
+          galaktischer Vibes. Kein Finanzrat, nur purer Spaß im
+          leuchtend-blauen Universum. 🚀
+        </p>
+
+        <div class="btn-row">
+          <a href="tokenomics.html" class="btn-main">
+            <span class="icon">📊</span>
+            <span>Tokenomics</span>
+          </a>
+
+          <a href="fun.html" class="btn-ghost">
+            <span class="icon">🎉</span>
+            <span>Zur Fun-Zone</span>
+          </a>
+
+          <a href="videos.html" class="btn-ghost">
+            <span class="icon">🎬</span>
+            <span>Videos ansehen</span>
+          </a>
+        </div>
+
+        <p class="hero-note">
+          Hinweis: Dies ist ein Memecoin-Projekt – nur Geld einsetzen, das du
+          auch verlieren kannst. Nichts hiervon ist Anlageberatung.
+        </p>
+      </section>
+
+      <!-- Socials + Plattformen -->
+      <aside class="card" id="socials">
+        <h3 class="section-title">Join the Avatard Tribe</h3>
+
+        <div class="social-grid">
+          <!-- Links: Social Media -->
+          <a href="https://twitter.com/" target="_blank" class="social-item" rel="noopener">
+            <div>
+              <span class="label">Twitter / X</span>
+              <div class="handle">@AvatardCoin</div>
+            </div>
+            <span>↗</span>
+          </a>
+
+          <a href="https://t.me/" target="_blank" class="social-item" rel="noopener">
+            <div>
+              <span class="label">Telegram</span>
+              <div class="handle">t.me/AvatardPortal</div>
+            </div>
+            <span>↗</span>
+          </a>
+
+          <a href="https://youtube.com/" target="_blank" class="social-item" rel="noopener">
+            <div>
+              <span class="label">YouTube</span>
+              <div class="handle">AvatardTV</div>
+            </div>
+            <span>↗</span>
+          </a>
+
+          <a href="https://www.tiktok.com/" target="_blank" class="social-item" rel="noopener">
+            <div>
+              <span class="label">TikTok</span>
+              <div class="handle">@AvatardMemes</div>
+            </div>
+            <span>↗</span>
+          </a>
+
+          <!-- Links: Axiom / Pump.fun / Gmgn.ai -->
+          <a href="https://axiom.xyz/" target="_blank"
+             class="social-item social-ax" rel="noopener">
+            <div>
+              <span class="label">Axiom</span>
+              <div class="handle">On-chain Magic</div>
+            </div>
+            <span>↗</span>
+          </a>
+
+          <a href="https://pump.fun/" target="_blank"
+             class="social-item social-pump" rel="noopener">
+            <div>
+              <span class="label">Pump.fun</span>
+              <div class="handle">Launch &amp; Meme</div>
+            </div>
+            <span>↗</span>
+          </a>
+
+          <a href="https://gmgn.ai/" target="_blank"
+             class="social-item social-gmgn" rel="noopener">
+            <div>
+              <span class="label">Gmgn.ai</span>
+              <div class="handle">Charts &amp; Alpha</div>
+            </div>
+            <span>↗</span>
+          </a>
+        </div>
+
+        <div class="token-preview">
+          <div class="token-badges">
+            <span class="token-badge">Chain: ???</span>
+            <span class="token-badge">Ticker: $AVTD</span>
+            <span class="token-badge">100% Community</span>
+          </div>
+          <p>
+            Alle Details zu Supply, Verteilung, LP-Lock und mehr findest du auf
+            der <strong>Tokenomics-Seite</strong>.  
+            Klick einfach auf den 📊-Button oben.
+          </p>
+        </div>
+      </aside>
+    </main>
+
+    <footer>
+      © <span id="year"></span> Avatard Memecoin – Made für Memes, nicht für
+      Finanzberatung.
+    </footer>
+  </div>
+
+  <script>
+    // Jahreszahl automatisch aktualisieren
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
